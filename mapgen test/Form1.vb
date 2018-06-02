@@ -15,7 +15,7 @@
 
     Public Structure Grav
         Public Const intTermVel As Integer = 15
-        Public Const dblGravFactor As Integer = 0.2
+        Public Const dblGravFactor As Integer = 1
     End Structure
 
     Private backPanel As CustomPanel = New CustomPanel
@@ -45,8 +45,9 @@
                         .BackColor = Color.White
                         .Visible = True
                         .BringToFront()
-                        .Tag = "0,0"
                     Else
+                        'THIS NEEDS TO BE FULLY DELETED SOMEHOW
+                        .Name = "Empty"
                         .Dispose()
                     End If
                 End With
@@ -65,6 +66,7 @@
                         .Visible = True
                         .Name = "Player"
                         .BackColor = Color.Red
+                        .Tag = "0,0"
                         .BringToFront()
                         .Location = picTiles(x, y).Location
                     End With
@@ -74,7 +76,7 @@
                 End If
             Next
         Next
-
+        Debugger.Show()
         Dim tmrGravity As Timer
         tmrGravity = New Timer
         With tmrGravity
@@ -85,19 +87,105 @@
     End Sub
 
     Private Sub tmrGravity_Tick(ByVal sender As Object, ByVal e As EventArgs)
+
         Dim dblVelocity As Double
         With Player
 
-            dblVelocity += Grav.dblGravFactor 'increase gravity by the factor
+            Dim xvel = Int(Split(Player.Tag, ",")(0))
+            Dim yvel = Int(Split(Player.Tag, ",")(1))
+
+            Dim x = Player.Location.X
+            Dim y = Player.Location.Y
+            Dim i As Integer
+
+
+            yvel += Grav.dblGravFactor 'increase gravity by the factor
             dblVelocity = Clamp(dblVelocity, -Grav.intTermVel, Grav.intTermVel) 'clamp the velocity to a terminal velocity            
 
-            Static cur() As String = Split(.Tag, ",")
-            cur(1) = dblVelocity
+            .Tag = dblVelocity & "," & Split(.Tag, ",")(0)
+
+            Debugger.lstMap.Items.Clear()
+            Debugger.lstMap.Items.Add(xvel & ", " & yvel)
+            Debugger.lstMap.Items.Add(collision_point(x, y, picTiles).Name)
+
+            Debugger.lstMap.Items.Add("  0: " & raycast_distance(x, y, 0))
+            Debugger.lstMap.Items.Add(" 90: " & raycast_distance(x, y, 90))
+            Debugger.lstMap.Items.Add("180: " & raycast_distance(x, y, 180))
+            Debugger.lstMap.Items.Add("270: " & raycast_distance(x, y, 270))
+
+            .Left += xvel
+            .Top += yvel
+
+
+
+            '    'right
+            '    If xvel > 0 Then
+            '        i = 0
+            '        While collision_point(Player.Right + 1, y, picTiles).Name = "Empty" And i < xvel
+            '            i += 1
+            '            Player.Left += 1
+            '        End While
+            '    End If
+            '    'left
+            '    If xvel < 0 Then
+            '        i = 0
+            '        While collision_point(Player.Left - 1, y, picTiles).Name = "Empty" And i < Math.Abs(xvel)
+            '            i += 1
+            '            Player.Left -= 1
+            '        End While
+            '    End If
+            '    'down
+            '    If yvel > 0 Then
+            '        i = 0
+            '        While collision_point(x, Player.Bottom + 1, picTiles).Name = "Empty" And i < yvel
+            '            i += 1
+            '            Player.Top += 1
+            '        End While
+            '    End If
+            '    'up
+            '    If yvel < 0 Then
+            '        i = 0
+            '        While collision_point(x, Player.Top - 1, picTiles).Name = "Empty" And i < Math.Abs(yvel)
+            '            i += 1
+            '            Player.Top -= 1
+            '        End While
+            '    End If
 
         End With
 
     End Sub
 
+    Public Function collision_point(ByVal x As Integer, ByVal y As Integer, collider(,) As PictureBox)
+        Dim r = Nothing
+        For Each tile In collider
+            If tile.Bounds.IntersectsWith(New Rectangle(x, y, 1, 1)) Then
+                r = tile
+            End If
+        Next
+        Return r
+    End Function
+    Public Function raycast_distance(ByVal x As Integer, ByVal y As Integer, ByVal dir As Integer) As Integer
+        Dim dist As Integer = 0
+        While IsNothing(collision_point(x + lengthdir_x(dist, dir), y + lengthdir_y(dist, dir), picTiles))
+            dist += 1
+        End While
+        Return dist
+    End Function
+    Public Function raycast_collision(ByVal x As Integer, ByVal y As Integer, ByVal dir As Integer) As PictureBox
+        Dim dist As Integer = 0, xhit As Integer, yhit As Integer
+        While IsNothing(collision_point(x + lengthdir_x(dist, dir), y + lengthdir_y(dist, dir), picTiles))
+            dist += 1
+        End While
+        xhit = x + lengthdir_x(dist, dir)
+        yhit = y + lengthdir_y(dist, dir)
+        Return collision_point(xhit, yhit, picTiles)
+    End Function
+    Public Function lengthdir_x(ByVal dist As Integer, ByVal dir As Integer) As Integer
+        Return Math.Cos(dir) * dist
+    End Function
+    Public Function lengthdir_y(ByVal dist As Integer, ByVal dir As Integer) As Integer
+        Return Math.Sin(dir) * dist
+    End Function
     Public Function Clamp(ByVal dblVal As Double, ByVal dblMin As Double, ByVal dblMax As Double) 'Clamps a value between two numbers.
         If dblVal > dblMax Then
             dblVal = dblMax
@@ -106,16 +194,12 @@
         End If
         Return dblVal
     End Function
-
     Enum Prop As Integer
         xA = 0
         yA = 1
         xF = 2
         yF = 3
     End Enum
-    '
-    'Reminder:  Friday is "bring your kids to work" day!
-    '
     Private Function toRad(ByVal deg As Integer) As Double
         Return deg * (Math.PI / 180)
     End Function
@@ -124,23 +208,26 @@
         Dim intSpeed As Integer = 5
         Static xvel As Double = 0
         Static yvel As Double = 0
-        Static cur = Split(Player.Tag, ",")
-        xvel = cur(0)
-        yvel = cur(1)
 
-        If e.KeyCode = Keys.Space Then
-            xvel = -20
+        Static grounded As Boolean = collision_point(Player.Location.X, Player.Bottom + 1, picTiles).Name = "Tile"
+
+
+
+        xvel = Split(Player.Tag, ",")(0)
+        yvel = Split(Player.Tag, ",")(1)
+
+        If e.KeyCode = Keys.Space And grounded = True Then
+            yvel -= 20
         End If
         If e.KeyCode = Keys.A Then
-            Player.Left -= intSpeed
+            xvel -= intSpeed
         End If
         If e.KeyCode = Keys.D Then
-            Player.Left += intSpeed
+
         End If
 
 
-        cur(0) = xvel
-        cur(1) = yvel
+        Player.Tag = xvel & "," & yvel
 
     End Sub
 
@@ -236,18 +323,6 @@
             grid(rndX, rndY) = True
             tiles -= 1
         End While
-        Dim strMap As String
-        For x = 0 To xMapSize
-            strMap = ""
-            For y = 0 To yMapSize
-                If grid(x, y) = True Then
-                    strMap += "# "
-                Else
-                    strMap += "  "
-                End If
-            Next
-            Debugger.lstMap.Items.Add(strMap)
-        Next
     End Sub
 
     Public Function Rand(ByVal intLow As Integer, ByVal intHigh As Integer) As Integer

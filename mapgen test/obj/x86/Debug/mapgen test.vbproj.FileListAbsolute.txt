@@ -49,3 +49,18 @@ D:\The Quarry\mapgen test\mapgen test\obj\x86\Debug\mapgen test.vbproj.CopyCompl
 D:\The Quarry\mapgen test\mapgen test\obj\x86\Debug\mapgen test.exe
 D:\The Quarry\mapgen test\mapgen test\obj\x86\Debug\mapgen test.xml
 D:\The Quarry\mapgen test\mapgen test\obj\x86\Debug\mapgen test.pdb
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\mapgen test.exe
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\mapgen test.pdb
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\mapgen test.xml
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.xml
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.vbprojAssemblyReference.cache
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\WindowsApplication1.Debugger.resources
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\WindowsApplication1.mapGen.resources
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\WindowsApplication1.LoadingScreen.resources
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\WindowsApplication1.Resources.resources
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.vbproj.GenerateResource.cache
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.vbproj.CoreCompileInputs.cache
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.vbproj.CopyComplete
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.exe
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.xml
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.pdb
