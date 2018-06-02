@@ -100,9 +100,7 @@
 
 
             yvel += Grav.dblGravFactor 'increase gravity by the factor
-            dblVelocity = Clamp(dblVelocity, -Grav.intTermVel, Grav.intTermVel) 'clamp the velocity to a terminal velocity            
-
-            .Tag = dblVelocity & "," & Split(.Tag, ",")(0)
+            dblVelocity = Clamp(dblVelocity, -Grav.intTermVel, Grav.intTermVel) 'clamp the velocity to a terminal velocity                        
 
             Debugger.lstMap.Items.Clear()
             Debugger.lstMap.Items.Add(xvel & ", " & yvel)
@@ -113,43 +111,43 @@
             Debugger.lstMap.Items.Add("180: " & raycast_distance(x, y, 180))
             Debugger.lstMap.Items.Add("270: " & raycast_distance(x, y, 270))
 
-            .Left += xvel
-            .Top += yvel
 
 
 
-            '    'right
-            '    If xvel > 0 Then
-            '        i = 0
-            '        While collision_point(Player.Right + 1, y, picTiles).Name = "Empty" And i < xvel
-            '            i += 1
-            '            Player.Left += 1
-            '        End While
-            '    End If
-            '    'left
-            '    If xvel < 0 Then
-            '        i = 0
-            '        While collision_point(Player.Left - 1, y, picTiles).Name = "Empty" And i < Math.Abs(xvel)
-            '            i += 1
-            '            Player.Left -= 1
-            '        End While
-            '    End If
-            '    'down
-            '    If yvel > 0 Then
-            '        i = 0
-            '        While collision_point(x, Player.Bottom + 1, picTiles).Name = "Empty" And i < yvel
-            '            i += 1
-            '            Player.Top += 1
-            '        End While
-            '    End If
-            '    'up
-            '    If yvel < 0 Then
-            '        i = 0
-            '        While collision_point(x, Player.Top - 1, picTiles).Name = "Empty" And i < Math.Abs(yvel)
-            '            i += 1
-            '            Player.Top -= 1
-            '        End While
-            '    End If
+
+
+            'right
+            If xvel > 0 Then
+                i = 0
+                While collision_point(Player.Right + 1, y, picTiles).Name = "Empty" And i < xvel
+                    i += 1
+                    Player.Left += 1
+                End While
+            End If
+            'left
+            If xvel < 0 Then
+                i = 0
+                While collision_point(Player.Left - 1, y, picTiles).Name = "Empty" And i < Math.Abs(xvel)
+                    i += 1
+                    Player.Left -= 1
+                End While
+            End If
+            'down
+            If yvel > 0 Then
+                i = 0
+                While collision_point(x, Player.Bottom + 1, picTiles).Name = "Empty" And i < yvel
+                    i += 1
+                    Player.Top += 1
+                End While
+            End If
+            'up
+            If yvel < 0 Then
+                i = 0
+                While collision_point(x, Player.Top - 1, picTiles).Name = "Empty" And i < Math.Abs(yvel)
+                    i += 1
+                    Player.Top -= 1
+                End While
+            End If
 
         End With
 
@@ -209,14 +207,14 @@
         Static xvel As Double = 0
         Static yvel As Double = 0
 
-        Static grounded As Boolean = collision_point(Player.Location.X, Player.Bottom + 1, picTiles).Name = "Tile"
+        'Static grounded As Boolean = collision_point(Player.Location.X, Player.Bottom + 1, picTiles).Name = "Tile"
 
 
 
         xvel = Split(Player.Tag, ",")(0)
         yvel = Split(Player.Tag, ",")(1)
 
-        If e.KeyCode = Keys.Space And grounded = True Then
+        If e.KeyCode = Keys.Space Then 'And grounded = True Then
             yvel -= 20
         End If
         If e.KeyCode = Keys.A Then

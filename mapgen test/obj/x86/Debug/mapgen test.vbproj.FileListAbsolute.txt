@@ -64,3 +64,19 @@ D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\ma
 D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.exe
 D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.xml
 D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.pdb
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\mapgen test.exe.config
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\mapgen test.exe
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\mapgen test.pdb
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\mapgen test.xml
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.xml
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.vbprojAssemblyReference.cache
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\WindowsApplication1.Debugger.resources
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\WindowsApplication1.mapGen.resources
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\WindowsApplication1.LoadingScreen.resources
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\WindowsApplication1.Resources.resources
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.vbproj.GenerateResource.cache
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.vbproj.CoreCompileInputs.cache
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.vbproj.CopyComplete
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.exe
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.xml
+C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.pdb
