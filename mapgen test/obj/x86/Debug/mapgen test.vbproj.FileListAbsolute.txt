@@ -80,3 +80,4 @@ C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\De
 C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.exe
 C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.xml
 C:\Users\rmani\Documents\GitHub\The-Quarry---VISUAL-BASIC\mapgen test\obj\x86\Debug\mapgen test.pdb
+D:\The Quarry\mapgen test\The-Quarry---VISUAL-BASIC\mapgen test\bin\Debug\mapgen test.exe.config

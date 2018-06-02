@@ -13,6 +13,8 @@
     Private picTiles(xMapSize, yMapSize) As PictureBox
     Private Player As PictureBox = New PictureBox
 
+
+
     Public Structure Grav
         Public Const intTermVel As Integer = 15
         Public Const dblGravFactor As Integer = 1
@@ -88,66 +90,87 @@
 
     Private Sub tmrGravity_Tick(ByVal sender As Object, ByVal e As EventArgs)
 
-        Dim dblVelocity As Double
         With Player
 
             Dim xvel = Int(Split(Player.Tag, ",")(0))
             Dim yvel = Int(Split(Player.Tag, ",")(1))
 
-            Dim x = Player.Location.X
-            Dim y = Player.Location.Y
+            Dim x = .Location.X
+            Dim y = .Location.Y
             Dim i As Integer
 
 
             yvel += Grav.dblGravFactor 'increase gravity by the factor
-            dblVelocity = Clamp(dblVelocity, -Grav.intTermVel, Grav.intTermVel) 'clamp the velocity to a terminal velocity                        
+            yvel = Clamp(yvel, -Grav.intTermVel, Grav.intTermVel) 'clamp the velocity to a terminal velocity                        
+            xvel = Clamp(xvel, -Grav.intTermVel, Grav.intTermVel) 'clamp the velocity to a terminal velocity                        
 
-            Debugger.lstMap.Items.Clear()
-            Debugger.lstMap.Items.Add(xvel & ", " & yvel)
-            Debugger.lstMap.Items.Add(collision_point(x, y, picTiles).Name)
 
-            Debugger.lstMap.Items.Add("  0: " & raycast_distance(x, y, 0))
-            Debugger.lstMap.Items.Add(" 90: " & raycast_distance(x, y, 90))
-            Debugger.lstMap.Items.Add("180: " & raycast_distance(x, y, 180))
-            Debugger.lstMap.Items.Add("270: " & raycast_distance(x, y, 270))
+            xvel /= 1.5
 
 
 
 
+
+
+            'Debugger.lstMap.Items.Add(collision_point(Player.Left - 1, y, picTiles).Name = "Tile")
+            'Debugger.lstMap.Items.Add(collision_point(Player.Right + 1, y, picTiles).Name = "Tile")
+            'Debugger.lstMap.Items.Add(collision_point(Player.Right + 1, y + 1, picTiles).Name = "Tile")
+            'Debugger.lstMap.Items.Add(collision_point(x, Player.Top - 1, picTiles).Name = "Tile")
+            'Debugger.lstMap.Items.Add(collision_point(x, Player.Bottom + 1, picTiles).Name = "Tile")
 
 
             'right
             If xvel > 0 Then
-                i = 0
-                While collision_point(Player.Right + 1, y, picTiles).Name = "Empty" And i < xvel
-                    i += 1
-                    Player.Left += 1
-                End While
+                If Not IsNothing(collision_point(.Right + xvel, y, picTiles)) Then
+                    While IsNothing(collision_point(.Right + 1, y, picTiles))
+                        .Left += 1
+                    End While
+                Else
+                    .Left += xvel
+                End If
             End If
-            'left
+
             If xvel < 0 Then
-                i = 0
-                While collision_point(Player.Left - 1, y, picTiles).Name = "Empty" And i < Math.Abs(xvel)
-                    i += 1
-                    Player.Left -= 1
-                End While
+                If Not IsNothing(collision_point(.Left + xvel, y, picTiles)) Then
+                    While IsNothing(collision_point(.Left - 1, y, picTiles))
+                        .Left -= 1
+                    End While
+                Else
+                    .Left += xvel
+                End If
             End If
-            'down
+
             If yvel > 0 Then
-                i = 0
-                While collision_point(x, Player.Bottom + 1, picTiles).Name = "Empty" And i < yvel
-                    i += 1
-                    Player.Top += 1
-                End While
+                If Not IsNothing(collision_point(.Bottom, y + yvel, picTiles)) Then
+                    While IsNothing(collision_point(.Bottom, y + 1, picTiles))
+                        .Top += 1
+                    End While
+                    yvel = 0
+                Else
+                    .Top += yvel
+                End If
             End If
-            'up
+
             If yvel < 0 Then
-                i = 0
-                While collision_point(x, Player.Top - 1, picTiles).Name = "Empty" And i < Math.Abs(yvel)
-                    i += 1
-                    Player.Top -= 1
-                End While
+                If Not IsNothing(collision_point(.Top, y + yvel, picTiles)) Then
+                    While IsNothing(collision_point(.Top, y - 1, picTiles))
+                        .Top -= 1
+                    End While
+                Else
+                    .Top += yvel
+                End If
             End If
+
+            Player.Tag = xvel & "," & yvel
+
+            Debugger.lstMap.Items.Clear()
+            Debugger.lstMap.Items.Add(xvel & ", " & yvel)
+
+            Debugger.lstMap.Items.Add(raycast_collision(x, Player.Top, 270).Name)
+            Debugger.lstMap.Items.Add(raycast_distance(x, Player.Top, 270).ToString)
+
+            Debugger.lstMap.Items.Add(lengthdir_x(5, 45))
+            Debugger.lstMap.Items.Add(lengthdir_y(5, 45))
 
         End With
 
@@ -156,7 +179,7 @@
     Public Function collision_point(ByVal x As Integer, ByVal y As Integer, collider(,) As PictureBox)
         Dim r = Nothing
         For Each tile In collider
-            If tile.Bounds.IntersectsWith(New Rectangle(x, y, 1, 1)) Then
+            If tile.Bounds.IntersectsWith(New Rectangle(x, y, 1, 1)) And tile.Name = "Tile" Then
                 r = tile
             End If
         Next
@@ -164,9 +187,11 @@
     End Function
     Public Function raycast_distance(ByVal x As Integer, ByVal y As Integer, ByVal dir As Integer) As Integer
         Dim dist As Integer = 0
+
         While IsNothing(collision_point(x + lengthdir_x(dist, dir), y + lengthdir_y(dist, dir), picTiles))
             dist += 1
         End While
+
         Return dist
     End Function
     Public Function raycast_collision(ByVal x As Integer, ByVal y As Integer, ByVal dir As Integer) As PictureBox
@@ -179,10 +204,10 @@
         Return collision_point(xhit, yhit, picTiles)
     End Function
     Public Function lengthdir_x(ByVal dist As Integer, ByVal dir As Integer) As Integer
-        Return Math.Cos(dir) * dist
+        Return Math.Cos(toRad(dir)) * dist
     End Function
     Public Function lengthdir_y(ByVal dist As Integer, ByVal dir As Integer) As Integer
-        Return Math.Sin(dir) * dist
+        Return Math.Sin(toRad(dir)) * dist
     End Function
     Public Function Clamp(ByVal dblVal As Double, ByVal dblMin As Double, ByVal dblMax As Double) 'Clamps a value between two numbers.
         If dblVal > dblMax Then
@@ -221,7 +246,7 @@
             xvel -= intSpeed
         End If
         If e.KeyCode = Keys.D Then
-
+            xvel += intSpeed
         End If
 
 
